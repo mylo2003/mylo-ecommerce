@@ -1,8 +1,8 @@
-import React from 'react'
+import Layout from '../components/Layout'
 
 function MyAccount() {
   return (
-    <div>MyAccount</div>
+    <Layout>MyAccount</Layout>
   )
 }
 
