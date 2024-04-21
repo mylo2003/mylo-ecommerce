@@ -10,7 +10,7 @@ function NavBar() {
   }
 
   return (
-    <div className='w-full border-b-2 shadow-md'>
+    <div className='w-full border-b-2 shadow-md sticky top-0 z-20 backdrop-blur-md bg-background/70 dark:bg-[#030707]/70'>
       <nav className='flex justify-between items-center max-w-7xl h-24 w-full mx-auto  border-gray-400  px-2 text-text dark:text-[#F6F8F8]'>
         <ul className=' w-[43%] flex justify-between items-baseline'>
           <li className='font-bold text-xl'>
@@ -68,11 +68,11 @@ function NavBar() {
           </li>
         </ul>
 
-        <ul className='w-[33%] flex justify-between items-baseline'>
+        <ul className='w-[20%] flex justify-between'>
           <li className='text-gray-500'>
             camilo@gmail.com
           </li>
-          <li>
+          {/* <li>
             <NavLink to='/my-orders'
               style={activeStyle}
               className='transition-all hover:text-secondary'
@@ -87,7 +87,7 @@ function NavBar() {
             >
               Sign In
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink to='/my-account'
               style={activeStyle}
@@ -97,7 +97,9 @@ function NavBar() {
             </NavLink>
           </li>
           <li>
-            <i className='bx bx-cart-alt bx-sm transition-all hover:text-secondary cursor-pointer'></i>
+            <NavLink to='/my-orders'>
+              <i className='bx bx-cart-alt bx-sm transition-all hover:text-secondary cursor-pointer'></i>
+            </NavLink>
           </li>
           <li onClick={
             () => {
