@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom'
-import { ShoppingCartContext } from '../context/GlobalContext';
+import { ShoppingCartContext } from '../context/ProductContext';
 
 function NavBar() {
   const activeStyle = ({ isActive }) => {

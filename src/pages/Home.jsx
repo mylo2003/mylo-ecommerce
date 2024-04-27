@@ -1,24 +1,17 @@
 import { useContext } from 'react'
-import { ShoppingCartContext } from '../context/GlobalContext'
+import { LoadStatusContext } from '../context/LoadStatus'
 import Layout from '../components/Layout'
-import Card from '../components/Card'
-import ProductDetails from '../components/ProductDetails';
+import ErrorMessage from '../components/ErrorMessage';
+import AllProducts from '../components/AllProducts';
 
 function Home() {
 
-  const { products } = useContext(ShoppingCartContext);
+  const { error } = useContext(LoadStatusContext);
 
   return (
     <Layout>
-      <h2 className='mt-5 dark:text-white'>All Products</h2>
-      <div className='w-[75%] flex flex-wrap mt-7 mb-20 gap-10 justify-center'>
-        {
-          products?.map(product => (
-            <Card key={product.id} {...product} product={product} />
-          ))
-        }
-      </div>
-      <ProductDetails />
+      {error.status && <ErrorMessage />}
+      {!error.status && <AllProducts />}
     </Layout>
   )
 }
