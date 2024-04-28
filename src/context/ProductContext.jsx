@@ -6,33 +6,56 @@ function ShoppingCartProvider({ children }) {
   //Almacena los productos que trae la api
   const [products, setProducts] = useState(null);
 
-  //Contador de productos en el carrito
-  const [count, setCount] = useState(0);
+  //Contador de productos en el carrito y total
+  const [countCart, setCountCart] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   //Detalles del producto
-  const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
   const [productToShow, setProductToShow] = useState({});
-
+  
   //Almacena los productos en el carrito
   const [cartProducts, setCartProducts] = useState([]);
-
-  //Funciones para abrir o cerrar los detalles del producto
+  
+  //ProductDetail | Open/Close
+  const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
   const openProductDetail = () => setIsProductDetailOpen(true);
-  const closeProductDetail = () => setIsProductDetailOpen(false);
+  const closeProductDetail = () => {
+    setIsCheckoutSideMenuOpen(false);
+    setIsProductDetailOpen(false);
+  }
 
-  const addProductToCart = (e, productData, viewDetail = true) => {
+  //ChecoutSideMenu | Open/Close
+  const [isCheckoutSideMenuOpen, setIsCheckoutSideMenuOpen] = useState(false);
+  const openCheckout = () => setIsCheckoutSideMenuOpen(true);
+  const closeCheckout = () => {
+    setIsProductDetailOpen(false);
+    setIsCheckoutSideMenuOpen(false);
+  };
+
+  //Agrega productos al carrito
+  const addProductToCart = (e, productData) => {
     e.stopPropagation();
-    if (viewDetail) e.target.classList.add('bxs-plus-circle');
-    setCount(count + 1);
+    openCheckout();
     setCartProducts([...cartProducts, productData]);
+    setCountCart(countCart + 1);
+    setTotalAmount(totalAmount + productData.price);
+  }
+
+  //Elimina productos del carrito
+  const handleDelete = (id, price) => {
+    const filteredProducts = cartProducts.filter((product) => product.id != id);
+
+    setCartProducts(filteredProducts);
+    setCountCart(countCart - 1);
+    setTotalAmount(totalAmount - price);
   }
 
   return (
     <ShoppingCartContext.Provider value={{
       products,
       setProducts,
-      count,
-      setCount,
+      countCart,
+      setCountCart,
       isProductDetailOpen,
       openProductDetail,
       closeProductDetail,
@@ -41,6 +64,12 @@ function ShoppingCartProvider({ children }) {
       cartProducts,
       setCartProducts,
       addProductToCart,
+      isCheckoutSideMenuOpen,
+      openCheckout,
+      closeCheckout,
+      totalAmount,
+      setTotalAmount,
+      handleDelete,
     }}>
       {children}
     </ShoppingCartContext.Provider>

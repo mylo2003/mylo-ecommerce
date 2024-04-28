@@ -9,6 +9,7 @@ import SignIn from '../pages/SignIn'
 import NotFound from '../pages/NotFound'
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
+import CheckoutSideMenu from '../components/CheckoutSideMenu'
 import '../styles/index.css'
 
 const AppRoutes = () => {
@@ -31,6 +32,7 @@ function App() {
         <BrowserRouter>
           <NavBar />
           <AppRoutes />
+          <CheckoutSideMenu />
           <Footer />
         </BrowserRouter>
       </LoadStatusProvider>
