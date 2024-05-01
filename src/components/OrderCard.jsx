@@ -1,20 +1,24 @@
 import { useContext } from "react"
 import { ShoppingCartContext } from "../context/ProductContext";
 
-function OrderCard({ id, price, image, title }) {
+function OrderCard({ id, price, image, title, visible }) {
 
   const { handleDelete } = useContext(ShoppingCartContext);
 
   return (
     <div id={id} className="flex items-center h-[60px] w-full my-1 border-b border-gray-400">
-      <figure className="h-[60px] w-[70px]">
+      <figure className="h-[60px] w-1/6">
         <img className="h-full w-full object-cover rounded-lg" src={image} alt={title} />
       </figure>
-      <div className="flex justify-between h-full w-[75%] items-center">
-        <p className="mx-2 truncate">{title}</p>
-        <p className="font-semibold">${price}</p>
+      <div className="flex justify-between h-full w-5/6 px-2 items-center">
+        <p className="w-80 mx-2 truncate">{title}</p>
+        <p className="font-semibold w-20">${price}</p>
+        {
+          visible == true ?
+            <i onClick={() => handleDelete(id, price)} className='bx bx-cart-download bx-sm text-center w-7 cursor-pointer hover:text-red-600'></i>
+          : ''
+        }
       </div>
-      <i onClick={() => handleDelete(id, price)} className='bx bx-x bx-sm cursor-pointer hover:text-red-600'></i>
     </div>
   )
 }

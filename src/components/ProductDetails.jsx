@@ -16,7 +16,7 @@ function ProductDetails() {
       return (
         <i onClick={(e) => {
           addProductToCart(e, productToShow)
-        }} className='bx bx-cart-alt bx-sm align-baseline transition-all hover:text-secondary cursor-pointer'></i>
+        }} className='bx bx-cart-add bx-sm align-baseline transition-all hover:text-secondary cursor-pointer'></i>
       )
     }
   }
@@ -26,7 +26,7 @@ function ProductDetails() {
       <div className="flex justify-between">
         <h2 className="text-text font-semibold text-lg">Details</h2>
         <button onClick={closeProductDetail}>
-          <i className='bx bx-x-circle bx-sm hover:text-secondary'></i>
+          <i className='bx bx-x-circle bx-sm transition-colors hover:text-red-500'></i>
         </button>
       </div>
       <div className="flex justify-center flex-col items-center">

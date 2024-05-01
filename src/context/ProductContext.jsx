@@ -13,8 +13,14 @@ function ShoppingCartProvider({ children }) {
   //Detalles del producto
   const [productToShow, setProductToShow] = useState({});
   
-  //Almacena los productos en el carrito
+  //Almacena los productos en el carrito y almacena el último ingresado
   const [cartProducts, setCartProducts] = useState([]);
+  const [lastOrders, setLastOrders] = useState([]); 
+  const [index, setIndex] = useState(null); 
+
+  //Almacena la orden al historial de ordenes
+  const [orderNum, setOrderNum] = useState(0)
+  const [ordersHistory, setOrdersHistory] = useState([]);
   
   //ProductDetail | Open/Close
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
@@ -38,7 +44,7 @@ function ShoppingCartProvider({ children }) {
     openCheckout();
     setCartProducts([...cartProducts, productData]);
     setCountCart(countCart + 1);
-    setTotalAmount(totalAmount + productData.price);
+    setTotalAmount(totalAmount + Number(productData.price.toFixed(2)));
   }
 
   //Elimina productos del carrito
@@ -47,7 +53,18 @@ function ShoppingCartProvider({ children }) {
 
     setCartProducts(filteredProducts);
     setCountCart(countCart - 1);
-    setTotalAmount(totalAmount - price);
+    setTotalAmount(totalAmount - Number(price.toFixed(2)));
+  }
+
+  const addOrderAtHistory = (date) => {
+    setOrderNum(orderNum + 1);
+    setOrdersHistory([...ordersHistory, {id: orderNum, monto: totalAmount, cant: countCart, date: date}]);
+    setLastOrders([...lastOrders, cartProducts]);
+    setCartProducts([]);
+    setProductToShow({});
+    setCountCart(0);
+    setTotalAmount(0);
+    closeCheckout();
   }
 
   return (
@@ -70,6 +87,13 @@ function ShoppingCartProvider({ children }) {
       totalAmount,
       setTotalAmount,
       handleDelete,
+      addOrderAtHistory,
+      ordersHistory,
+      setOrderNum,
+      orderNum,
+      lastOrders,
+      setIndex, 
+      index,
     }}>
       {children}
     </ShoppingCartContext.Provider>

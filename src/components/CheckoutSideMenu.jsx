@@ -1,31 +1,38 @@
 import { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import { ShoppingCartContext } from "../context/ProductContext";
 import OrderCard from "./OrderCard";
 
 function CheckoutSideMenu() {
+  
+  const { isCheckoutSideMenuOpen, closeCheckout, cartProducts, countCart, totalAmount, addOrderAtHistory } = useContext(ShoppingCartContext);
 
-  const { isCheckoutSideMenuOpen, closeCheckout, cartProducts, countCart, totalAmount } = useContext(ShoppingCartContext);
-
-
+  let date = new Date();
+  let orderDay = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}` ;
+  
   return (
     <aside className={`w-[450px] h-[80vh] ${(isCheckoutSideMenuOpen) ? 'bottom-10' : '-bottom-[80vh]'} fixed transition-all right-10  rounded-t-xl px-10 py-6 shadow-2xl border border-b-0 border-primary bg-white`}>
       <div className="flex justify-between">
         <h2 className="text-text font-semibold w-[90%] text-lg flex justify-between">My Order <span className=" text-gray-400 font-medium">Cant: {countCart}</span></h2>
         <button onClick={closeCheckout}>
-          <i className='bx bx-x-circle bx-sm hover:text-secondary'></i>
+          <i className='bx bx-x-circle bx-sm transition-colors hover:text-red-500'></i>
         </button>
       </div>
       <div className="my-3 overflow-auto w-full h-[80%] bg-gray-200 rounded-lg border-b border-gray-400">
         {
           cartProducts.map(product => (
-            <OrderCard key={product.id} {...product}/>
+            <OrderCard key={product.id} {...product} visible={true}/>
           ))
         }
       </div>
       <div className="flex justify-between items-center px-2">
-        <span>TOTAL</span>
-        <span className="font-bold">$ {totalAmount}</span>
+        <span>TOTAL:</span>
+        <span className="font-semibold">$ {totalAmount}</span>
       </div>
+      <NavLink to='/my-orders' onClick={() => totalAmount != 0 ? addOrderAtHistory(orderDay) : null} 
+        className='bg-primary text-white w-full mt-1 h-10 flex items-center justify-center rounded-lg transition-all hover:text-text hover:border hover:border-black hover:bg-white'>
+        Checkout
+      </NavLink>
     </aside>
   )
 }

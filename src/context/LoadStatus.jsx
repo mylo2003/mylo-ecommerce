@@ -16,7 +16,7 @@ function LoadStatusProvider({ children }) {
     setTimeout(()=> {
       api.get('products?limit=20')
       .then(res => {
-        setProducts(res.data);
+        setProducts(res.data); 
         setLoading(false);
       })
       .catch(err => {

@@ -1,6 +1,11 @@
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom'
+import { ShoppingCartContext } from '../context/ProductContext';
 
 function NavBar() {
+
+  const { openCheckout } = useContext(ShoppingCartContext);
+
   const activeStyle = ({ isActive }) => {
     return {
       textDecoration: isActive ? "underline" : "",
@@ -11,7 +16,7 @@ function NavBar() {
   return (
     <div className='w-full border-b-2 shadow-md sticky top-0 z-20 backdrop-blur-md bg-background/70 dark:bg-[#030707]/70'>
       <nav className='flex justify-between items-center max-w-7xl h-24 w-full mx-auto  border-gray-400  px-2 text-text dark:text-[#F6F8F8]'>
-        <ul className=' w-[43%] flex justify-between items-baseline '>
+        <ul className=' w-[38%] flex justify-between items-baseline '>
           <li className='font-bold text-xl'>
             <NavLink to='/' className="transition-all hover:text-secondary">
               Mylommerce
@@ -57,28 +62,21 @@ function NavBar() {
               Toys
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to='/others'
               style={activeStyle}
               className="transition-all hover:text-secondary"
             >
               Others
             </NavLink>
-          </li>
+          </li> */}
         </ul>
 
-        <ul className='w-[20%] flex justify-between'>
+        <ul className='w-[22%] flex justify-between'>
           <li className='text-gray-500'>
             camilo@gmail.com
           </li>
-          {/* <li>
-            <NavLink to='/my-orders'
-              style={activeStyle}
-              className='transition-all hover:text-secondary'
-            >
-              My Orders
-            </NavLink>
-          </li>
+          {/*
           <li>
             <NavLink to='/sign-in'
               style={activeStyle}
@@ -86,18 +84,23 @@ function NavBar() {
             >
               Sign In
             </NavLink>
-          </li> */}
+          </li> 
+          */}
           <li>
             <NavLink to='/my-account'
-              style={activeStyle}
               className='transition-all hover:text-secondary'
             >
               <i className='bx bx-user-circle bx-sm'></i>
             </NavLink>
           </li>
+          <li onClick={openCheckout}>
+            <i className='bx bx-cart-alt bx-sm transition-all hover:text-secondary cursor-pointer'></i>
+          </li>
           <li>
-            <NavLink to='/my-orders'>
-              <i className='bx bx-cart-alt bx-sm transition-all hover:text-secondary cursor-pointer'></i>
+            <NavLink to='/my-orders'
+              className='transition-all hover:text-secondary'
+            >
+              <i className='bx bx-purchase-tag bx-sm' ></i>
             </NavLink>
           </li>
           <li onClick={
