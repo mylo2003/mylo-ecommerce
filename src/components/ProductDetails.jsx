@@ -22,9 +22,9 @@ function ProductDetails() {
   }
 
   return (
-    <aside className={`w-[450px] h-[80vh] ${(isProductDetailOpen) ? 'bottom-10' : '-bottom-[80vh]'} fixed transition-all right-10  rounded-t-xl px-10 py-6 shadow-2xl border border-b-0 border-primary bg-white`}>
+    <aside className={`w-[450px] h-[80vh] ${(isProductDetailOpen) ? 'bottom-10' : '-bottom-[80vh]'} fixed transition-all right-10  rounded-t-xl px-10 py-6 shadow-2xl border border-b-0 border-primary bg-white dark:text-background dark:border-white dark:bg-[#29323b]`}>
       <div className="flex justify-between">
-        <h2 className="text-text font-semibold text-lg">Details</h2>
+        <h2 className="text-text font-semibold text-lg dark:text-background">Details</h2>
         <button onClick={closeProductDetail}>
           <i className='bx bx-x-circle bx-sm transition-colors hover:text-red-500'></i>
         </button>

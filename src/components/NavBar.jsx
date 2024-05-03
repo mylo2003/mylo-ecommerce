@@ -14,7 +14,7 @@ function NavBar() {
     };
   }
   return (
-    <div className='w-full border-b-2 shadow-md sticky top-0 z-20 backdrop-blur-md bg-background/70 dark:bg-[#030707]/70'>
+    <div className='w-full border-b-2 border-white/80 dark:border-dark-secondary shadow-md sticky top-0 z-20 backdrop-blur-md bg-background/70 dark:bg-dark/80'>
       <nav className='flex justify-between items-center max-w-7xl h-24 w-full mx-auto  border-gray-400  px-2 text-text dark:text-[#F6F8F8]'>
         <ul className=' w-[38%] flex justify-between items-baseline '>
           <li className='font-bold text-xl'>

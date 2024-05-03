@@ -10,13 +10,13 @@ function MyOrder() {
 
   return (
     <Layout>
-      <div className='w-[600px] h-[70vh] flex flex-wrap items-center rounded-xl py-7 px-10 shadow-2xl border border-primary bg-white'>
+      <div className='w-[600px] h-[70vh] flex flex-wrap items-center rounded-xl py-7 px-10 shadow-2xl border border-primary dark:text-background bg-white dark:border-white dark:bg-dark-secondary'>
         <div className='w-full flex justify-between'>
           <NavLink to='/my-orders' className='w-1/4 hover:text-primary'><i className='bx bx-chevron-left bx-sm '></i></NavLink>
-          <h2 className="w-2/4 text-center text-text font-semibold text-lg">My Order # {ordersHistory[index]?.id != undefined ? ordersHistory[index]?.id + 1 : ''}</h2>
+          <h2 className="w-2/4 text-center text-text font-semibold text-lg dark:text-background">My Order # {ordersHistory[index]?.id != undefined ? ordersHistory[index]?.id + 1 : ''}</h2>
           <i className='bx bx-shopping-bag bx-sm w-1/4 text-right'></i>
         </div>
-        <div className="my-3 overflow-auto w-full h-[80%] bg-gray-200 rounded-lg border-b border-gray-400">
+        <div className="my-3 overflow-auto w-full h-[80%] rounded-lg border-b border-dark-accent ">
           { (index != null) ?      
              lastOrders[index].map(order => (
               <OrderCard key={order.id} {...order} visible={false} />

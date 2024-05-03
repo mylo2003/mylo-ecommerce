@@ -11,14 +11,14 @@ function CheckoutSideMenu() {
   let orderDay = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}` ;
   
   return (
-    <aside className={`w-[450px] h-[80vh] ${(isCheckoutSideMenuOpen) ? 'bottom-10' : '-bottom-[80vh]'} fixed transition-all right-10  rounded-t-xl px-10 py-6 shadow-2xl border border-b-0 border-primary bg-white`}>
+    <aside className={`w-[450px] h-[80vh] ${(isCheckoutSideMenuOpen) ? 'bottom-10' : '-bottom-[80vh]'} fixed transition-all right-10  rounded-t-xl px-10 py-6 shadow-2xl border border-b-0 border-primary bg-white dark:text-background dark:border-white dark:bg-dark-secondary`}>
       <div className="flex justify-between">
-        <h2 className="text-text font-semibold w-[90%] text-lg flex justify-between">My Order <span className=" text-gray-400 font-medium">Cant: {countCart}</span></h2>
+        <h2 className="text-text font-semibold w-[90%] text-lg flex justify-between dark:text-background">My Order <span className=" text-gray-400 font-medium">Cant: {countCart}</span></h2>
         <button onClick={closeCheckout}>
           <i className='bx bx-x-circle bx-sm transition-colors hover:text-red-500'></i>
         </button>
       </div>
-      <div className="my-3 overflow-auto w-full h-[80%] bg-gray-200 rounded-lg border-b border-gray-400">
+      <div className="my-3 overflow-auto w-full h-[80%] rounded-lg border-b border-gray-400 dark:bg-dark-secondary">
         {
           cartProducts.map(product => (
             <OrderCard key={product.id} {...product} visible={true}/>

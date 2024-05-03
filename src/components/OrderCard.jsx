@@ -6,7 +6,7 @@ function OrderCard({ id, price, image, title, visible }) {
   const { handleDelete } = useContext(ShoppingCartContext);
 
   return (
-    <div id={id} className="flex items-center h-[60px] w-full my-1 border-b border-gray-400">
+    <div id={id} className="flex items-center shadow rounded-lg h-[60px] w-full my-1 bg-gray-200 border-l border-b border-gray-400 dark:border-dark-accent dark:bg-dark">
       <figure className="h-[60px] w-1/6">
         <img className="h-full w-full object-cover rounded-lg" src={image} alt={title} />
       </figure>
