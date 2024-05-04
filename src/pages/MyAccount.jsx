@@ -1,9 +1,9 @@
-import Layout from '../components/Layout'
+import Layout from '../components/Layout';
 
 function MyAccount() {
   return (
     <Layout>MyAccount</Layout>
-  )
+  );
 }
 
-export default MyAccount
+export default MyAccount;

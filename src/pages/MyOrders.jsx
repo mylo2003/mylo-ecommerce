@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ShoppingCartContext } from '../context/ProductContext';
 import Layout from '../components/Layout'
@@ -32,7 +32,7 @@ function MyOrders() {
         </div>
       </div>
     </Layout>
-  )
+  );
 }
 
-export default MyOrders
+export default MyOrders;

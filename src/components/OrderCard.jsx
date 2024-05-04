@@ -11,8 +11,8 @@ function OrderCard({ id, price, image, title, visible }) {
         <img className="h-full w-full object-cover rounded-lg" src={image} alt={title} />
       </figure>
       <div className="flex justify-between h-full w-5/6 px-2 items-center">
-        <p className="w-80 mx-2 truncate">{title}</p>
-        <p className="font-semibold w-20">${price}</p>
+        <p className="w-64 mx-2 truncate">{title}</p>
+        <p className="font-medium w-20">${price}</p>
         {
           visible == true ?
             <i onClick={() => handleDelete(id, price)} className='bx bx-cart-download bx-sm text-center w-7 cursor-pointer hover:text-red-600'></i>

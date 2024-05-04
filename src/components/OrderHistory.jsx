@@ -1,6 +1,6 @@
-import { useContext } from "react"
-import { NavLink } from "react-router-dom"
-import { ShoppingCartContext } from "../context/ProductContext"
+import { useContext } from "react";
+import { NavLink } from "react-router-dom";
+import { ShoppingCartContext } from "../context/ProductContext";
 
 function OrderHistory({ id, monto, cant, date }) {
 
@@ -16,9 +16,7 @@ function OrderHistory({ id, monto, cant, date }) {
         <NavLink to='/my-order' onClick={()=> setIndex(id)} className=" hover:text-primary mr-5"><i className='bx bx-chevron-right bx-sm'></i></NavLink>
       </div>
     </div>
-  )
+  );
 }
 
-export default OrderHistory
-
-// [#4e6071]
+export default OrderHistory;

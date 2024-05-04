@@ -1,39 +1,95 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import { ShoppingCartContext } from './ProductContext';
-import api from '../api/baseAPI';
+import { createContext, useEffect, useState } from 'react';
 
 const LoadStatusContext = createContext();
 
 function LoadStatusProvider({ children }) {
 
-  const {setProducts} = useContext(ShoppingCartContext);
+  //Api
+  const api = 'https://fakestoreapi.com/products';
 
-  //Estado de loading y error
+  //All products
+  const [products, setProducts] = useState(null);
+
+  //In case of loading or error
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState({status: false, message: ''});
-  
+  const [error, setError] = useState({ status: false, message: '' });
+
+  //Get Products by title and category
+  const [searchedItem, setSearchedItem] = useState('');
+  const [searchedCategory, setSearchedCategory] = useState('');
+
+  //Filtered Products to show
+  const [filteredItems, setFilteredItems] = useState(null);
+
+  //Fetchin data
+
   useEffect(() => {
-    setTimeout(()=> {
-      api.get('products?limit=20')
-      .then(res => {
-        setProducts(res.data); 
-        setLoading(false);
-      })
-      .catch(err => {
-        console.log('xd', err)
-        setError({status: true, message: err});
-      })
-    }, 800)
+    setTimeout(() => {
+      const dataFetching = async () => {
+        try {
+          const res = await fetch(api);
+
+          if (!res.ok) throw new Error('Something wrong');
+
+          const data = await res.json();
+
+          setProducts(data);
+          setLoading(false);
+        } catch (error) {
+          setError({ status: true, message: error });
+        }
+      }
+      dataFetching();
+    }, 500);
+    return;
   }, []);
+
+
+
+  const filtered = (products, searchedItem) => {
+    return products.filter(
+      (product) => (
+        product.title.toLowerCase().includes(searchedItem.toLowerCase()) ||
+        product.category.includes(searchedItem.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchedItem.toLowerCase())
+      )
+    );
+  };
+
+  const filteredCategory = (products, searchedCategory) => {
+    return products.filter(
+      (product) => (
+        product.category === searchedCategory
+      )
+    );
+  };
+
+  useEffect(() => {
+    if (searchedItem) {
+      setFilteredItems(filtered(products, searchedItem));
+    }
+    else if (searchedCategory) {
+      setFilteredItems(filteredCategory(products, searchedCategory));
+    }
+    else if (searchedCategory === '/' || searchedItem === '') {
+      setFilteredItems(products);
+    }
+  }, [products, searchedItem, searchedCategory]);
 
   return (
     <LoadStatusContext.Provider value={{
       loading,
       error,
+      searchedItem,
+      setSearchedItem,
+      filteredItems,
+      setFilteredItems,
+      searchedCategory,
+      setSearchedCategory,
     }}>
       {children}
     </LoadStatusContext.Provider>
-  )
+  );
 }
 
-export { LoadStatusContext, LoadStatusProvider }
+export { LoadStatusContext, LoadStatusProvider };

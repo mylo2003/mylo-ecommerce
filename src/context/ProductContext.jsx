@@ -1,34 +1,37 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react';
 
 const ShoppingCartContext = createContext();
 
 function ShoppingCartProvider({ children }) {
-  //Almacena los productos que trae la api
-  const [products, setProducts] = useState(null);
 
-  //Contador de productos en el carrito y total
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem('darkMode');
+    return savedMode ? JSON.parse(savedMode) : false;
+  });
+
+  //Cart counter and total
   const [countCart, setCountCart] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
 
-  //Detalles del producto
+  //Product Details
   const [productToShow, setProductToShow] = useState({});
-  
-  //Almacena los productos en el carrito y almacena el último ingresado
-  const [cartProducts, setCartProducts] = useState([]);
-  const [lastOrders, setLastOrders] = useState([]); 
-  const [index, setIndex] = useState(null); 
 
-  //Almacena la orden al historial de ordenes
-  const [orderNum, setOrderNum] = useState(0)
+  //Products in cart and last purchased products store, index of bill
+  const [cartProducts, setCartProducts] = useState([]);
+  const [lastOrders, setLastOrders] = useState([]);
+  const [index, setIndex] = useState(null);
+
+  //Stores the order to the order history
+  const [orderNum, setOrderNum] = useState(0);
   const [ordersHistory, setOrdersHistory] = useState([]);
-  
+
   //ProductDetail | Open/Close
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
   const openProductDetail = () => setIsProductDetailOpen(true);
   const closeProductDetail = () => {
     setIsCheckoutSideMenuOpen(false);
     setIsProductDetailOpen(false);
-  }
+  };
 
   //ChecoutSideMenu | Open/Close
   const [isCheckoutSideMenuOpen, setIsCheckoutSideMenuOpen] = useState(false);
@@ -38,39 +41,75 @@ function ShoppingCartProvider({ children }) {
     setIsCheckoutSideMenuOpen(false);
   };
 
-  //Agrega productos al carrito
+  //Add products to cart
   const addProductToCart = (e, productData) => {
     e.stopPropagation();
     openCheckout();
     setCartProducts([...cartProducts, productData]);
     setCountCart(countCart + 1);
-    setTotalAmount(totalAmount + Number(productData.price.toFixed(2)));
-  }
+    setTotalAmount((parseFloat(totalAmount) + parseFloat(productData.price)).toFixed(2));
+  };
 
-  //Elimina productos del carrito
+  //Remove products from cart
   const handleDelete = (id, price) => {
     const filteredProducts = cartProducts.filter((product) => product.id != id);
 
     setCartProducts(filteredProducts);
     setCountCart(countCart - 1);
-    setTotalAmount(totalAmount - Number(price.toFixed(2)));
-  }
+    setTotalAmount((parseFloat(totalAmount) - parseFloat(price)).toFixed(2));
+  };
 
+  //Stores products from cart to history
   const addOrderAtHistory = (date) => {
-    setOrderNum(orderNum + 1);
-    setOrdersHistory([...ordersHistory, {id: orderNum, monto: totalAmount, cant: countCart, date: date}]);
-    setLastOrders([...lastOrders, cartProducts]);
+    const newOrderNum = orderNum + 1;
+    setOrderNum(newOrderNum);
+
+    const updatedOrdersHistory = [...ordersHistory, { id: orderNum, monto: totalAmount, cant: countCart, date: date }];
+    setOrdersHistory(updatedOrdersHistory);
+
+    const updatedLastOrders = [...lastOrders, cartProducts];
+    setLastOrders(updatedLastOrders);
+
+    localStorage.setItem('orderNum', newOrderNum.toString());
+    localStorage.setItem('ordersHistory', JSON.stringify(updatedOrdersHistory));
+    localStorage.setItem('lastOrders', JSON.stringify(updatedLastOrders));
+    
     setCartProducts([]);
     setProductToShow({});
     setCountCart(0);
     setTotalAmount(0);
     closeCheckout();
-  }
+  };
 
+  useEffect(() => {
+    const storedOrdersHistory = localStorage.getItem('ordersHistory');
+    const storedLastOrders = localStorage.getItem('lastOrders');
+    const storedOrderNum = localStorage.getItem('orderNum');
+
+    if (storedOrdersHistory) {
+      setOrdersHistory(JSON.parse(storedOrdersHistory));
+    }
+  
+    if (storedLastOrders) {
+      setLastOrders(JSON.parse(storedLastOrders));
+    }
+  
+    if (storedOrderNum) {
+      setOrderNum(parseInt(storedOrderNum));
+    }
+  }, []);
+
+  useEffect(() => {
+    const switchTheme = document.querySelector('html');
+    if (darkMode) {
+      switchTheme.classList.add('dark');
+    } else {
+      switchTheme.classList.remove('dark');
+    }
+  }, [darkMode]);
+  
   return (
     <ShoppingCartContext.Provider value={{
-      products,
-      setProducts,
       countCart,
       setCountCart,
       isProductDetailOpen,
@@ -92,12 +131,14 @@ function ShoppingCartProvider({ children }) {
       setOrderNum,
       orderNum,
       lastOrders,
-      setIndex, 
+      setIndex,
       index,
+      darkMode,
+      setDarkMode,
     }}>
       {children}
     </ShoppingCartContext.Provider>
-  )
+  );
 }
 
-export { ShoppingCartContext, ShoppingCartProvider }
+export { ShoppingCartContext, ShoppingCartProvider };

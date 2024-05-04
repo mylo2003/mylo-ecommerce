@@ -34,7 +34,7 @@ function CheckoutSideMenu() {
         Checkout
       </NavLink>
     </aside>
-  )
+  );
 }
 
-export default CheckoutSideMenu
+export default CheckoutSideMenu;

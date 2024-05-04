@@ -98,7 +98,7 @@ function LoadingCard() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default LoadingCard
+export default LoadingCard;

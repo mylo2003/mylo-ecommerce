@@ -11,15 +11,15 @@ function ProductDetails() {
     if (isInCart) {
       return (
         <i className='bx bxs-check-circle bx-sm align-baseline'></i>
-      )
+      );
     } else {
       return (
         <i onClick={(e) => {
           addProductToCart(e, productToShow)
         }} className='bx bx-cart-add bx-sm align-baseline transition-all hover:text-secondary cursor-pointer'></i>
-      )
+      );
     }
-  }
+  };
 
   return (
     <aside className={`w-[450px] h-[80vh] ${(isProductDetailOpen) ? 'bottom-10' : '-bottom-[80vh]'} fixed transition-all right-10  rounded-t-xl px-10 py-6 shadow-2xl border border-b-0 border-primary bg-white dark:text-background dark:border-white dark:bg-[#29323b]`}>
@@ -45,7 +45,7 @@ function ProductDetails() {
         </div>
       </div>
     </aside>
-  )
+  );
 }
 
-export default ProductDetails
+export default ProductDetails;

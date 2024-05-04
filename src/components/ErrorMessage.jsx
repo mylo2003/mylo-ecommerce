@@ -5,7 +5,7 @@ function ErrorMessage() {
       <p className="mt-6 text-2xl">Whoops... the server is having <span className="text-red-400">troubles.</span></p>
       <p className="text-2xl">Please refresh the page or try again later.</p>
     </div>
-  ) 
+  );
 }
 
-export default ErrorMessage
+export default ErrorMessage;

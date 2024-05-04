@@ -1,4 +1,4 @@
-import Layout from '../components/Layout'
+import Layout from '../components/Layout';
 
 function NotFound() {
   return (
@@ -9,7 +9,7 @@ function NotFound() {
         <p className="text-2xl">The page you&apos;re trying to find <span className="font-semibold text-red-400">doesn&apos;t exist.</span></p>
       </div>
     </Layout>
-  )
+  );
 }
 
-export default NotFound
+export default NotFound;

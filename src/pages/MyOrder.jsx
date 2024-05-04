@@ -30,7 +30,7 @@ function MyOrder() {
         </div>
       </div>
     </Layout>
-  )
+  );
 }
 
-export default MyOrder
+export default MyOrder;
