@@ -19,7 +19,7 @@ function AllProducts() {
         :
         <h2 className='mt-5 dark:text-white'>All Products</h2>
       }
-      <div className='w-[75%] flex flex-wrap mt-7 mb-20 gap-10'>
+      <div className='w-[75%] justify-center lg:justify-start flex flex-wrap mt-7 mb-20 gap-10'>
         {loading && <LoadingCard />}
         {
           filteredItems?.length > 0 

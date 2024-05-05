@@ -128,8 +128,3 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
-package-lock.json
-postcss.config.js
-vite.config.js
-.eslintrc.cjs

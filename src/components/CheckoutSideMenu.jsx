@@ -11,9 +11,9 @@ function CheckoutSideMenu() {
   let orderDay = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}` ;
   
   return (
-    <aside className={`w-[450px] h-[80vh] ${(isCheckoutSideMenuOpen) ? 'bottom-10' : '-bottom-[80vh]'} fixed transition-all right-10  rounded-t-xl px-10 py-6 shadow-2xl border border-b-0 border-primary bg-white dark:text-background dark:border-white dark:bg-dark-secondary`}>
+    <aside className={`${(isCheckoutSideMenuOpen) ? 'bottom-0 md:bottom-10' : '-bottom-[80vh]'} w-[280px] md:w-[450px] h-[60vh] md:h-[60vh] lg:h-[80vh] fixed transition-all right-10 rounded-t-xl px-5 md:px-10 pt-7 pb-16 md:py-6 shadow-2xl border border-b-0 border-primary bg-white dark:text-background dark:border-white dark:bg-dark-secondary`}>
       <div className="flex justify-between">
-        <h2 className="text-text font-semibold w-[90%] text-lg flex justify-between dark:text-background">My Order <span className=" text-gray-400 font-medium">Cant: {countCart}</span></h2>
+        <h2 className="text-text font-semibold w-[85%] md:w-[90%] text-base md:text-lg flex justify-between dark:text-background">My Order <span className=" text-gray-400 font-medium">Cant: {countCart}</span></h2>
         <button onClick={closeCheckout}>
           <i className='bx bx-x-circle bx-sm transition-colors hover:text-red-500'></i>
         </button>

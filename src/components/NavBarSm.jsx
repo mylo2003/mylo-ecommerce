@@ -1,12 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom'
 import { ShoppingCartContext } from '../context/ProductContext';
 import { LoadStatusContext } from '../context/LoadStatus';
 
-function NavBar() {
-
+function NavBarSm() {
   const { openCheckout, darkMode, setDarkMode } = useContext(ShoppingCartContext);
   const { setSearchedCategory } = useContext(LoadStatusContext);
+
+  const [isActive, setIsActive] = useState(false);
 
   const activeStyle = ({ isActive }) => {
     return {
@@ -29,23 +30,43 @@ function NavBar() {
     );
   };
 
+  const toggleNavSlideMenu = () => {
+    const navMobile = document.getElementById('navMobile');
+    navMobile.classList.toggle('left-full')
+    window.scrollTo({    
+      top: 0,
+      behavior: "smooth"
+    });
+    setIsActive(!isActive);
+  };
+
   return (
-    <div className='w-full border-b-2 border-white/80 dark:border-dark-secondary shadow-md sticky top-0 z-20 backdrop-blur-md bg-background/70 dark:bg-dark/80'>
-      <nav className='flex justify-between items-center max-w-7xl h-24 w-full mx-auto  border-gray-400  px-2 text-text dark:text-[#F6F8F8]'>
-        <ul className=' w-[48%] flex justify-between items-baseline '>
-          <li className='font-bold text-xl'>
-            <NavLink to='/'
-              onClick={() => {
-                window.scrollTo({top: 0, behavior: "smooth" })
-                setSearchedCategory('');
-              }}
-              className="transition-all hover:text-secondary">
-              Mylommerce
-            </NavLink>
-          </li>
+    <div className='w-full flex justify-center border-b-2 border-white/80 dark:border-dark-secondary shadow-md sticky top-0 z-20 backdrop-blur-md bg-background/70 dark:bg-dark/80'>
+      <div className='lg:hidden w-[80%] h-16 flex items-center justify-between md:justify-center font-bold text-xl dark:text-background'>
+        <NavLink to='/'
+          onClick={() => {
+            toggleNavSlideMenu();
+            setSearchedCategory('');
+          }}
+          className="md:w-2/4 md:text-2xl text-right transition-all hover:text-secondary">
+          Mylommerce
+        </NavLink>
+        <button onClick={() => toggleNavSlideMenu()} className='md:w-1/4 flex justify-end items-center'>
+          { !isActive ? 
+              <i className='bx bx-menu bx-sm  hover:text-secondary '></i>
+            :
+              <i className='bx bx-x bx-sm hover:text-red-400'></i>
+          }
+        </button>
+      </div>
+      <nav id='navMobile' className='absolute transition-all md:text-xl left-full top-20 shadow-xl rounded-xl p-10 w-[90vw] h-[60vh] md:w-[70vw] md:h-[40vh] bg-gray-400 border-dark-accent text-text dark:text-background dark:bg-dark-secondary'>
+        <ul className='w-full flex flex-col items-center gap-2 mb-8'>
           <li>
             <NavLink to='/'
-              onClick={() => setSearchedCategory('')}
+              onClick={() => {
+                toggleNavSlideMenu();
+                setSearchedCategory('');
+              }}
               style={activeStyle}
               className="transition-all hover:text-secondary"
             >
@@ -54,7 +75,10 @@ function NavBar() {
           </li>
           <li>
             <NavLink to='/category/electronics'
-              onClick={() => setSearchedCategory('electronics')}
+              onClick={() => {
+                toggleNavSlideMenu();
+                setSearchedCategory('electronics');
+              }}
               style={activeStyle}
               className="transition-all hover:text-secondary"
             >
@@ -63,7 +87,10 @@ function NavBar() {
           </li>
           <li>
             <NavLink to='/category/jewelery'
-              onClick={() => setSearchedCategory('jewelery')}
+              onClick={() => {
+                toggleNavSlideMenu();
+                setSearchedCategory('jewelery');
+              }}
               style={activeStyle}
               className="transition-all hover:text-secondary"
             >
@@ -72,7 +99,10 @@ function NavBar() {
           </li>
           <li>
             <NavLink to='/category/mens-clothing'
-              onClick={() => setSearchedCategory("men's clothing")}
+              onClick={() => {
+                toggleNavSlideMenu();
+                setSearchedCategory("men's clothing");
+              }}
               style={activeStyle}
               className="transition-all hover:text-secondary"
             >
@@ -81,7 +111,10 @@ function NavBar() {
           </li>
           <li>
             <NavLink to='/category/womens-clothing'
-              onClick={() => setSearchedCategory("women's clothing")}
+              onClick={() => {
+                toggleNavSlideMenu();
+                setSearchedCategory("women's clothing")
+              }}
               style={activeStyle}
               className="transition-all hover:text-secondary"
             >
@@ -89,30 +122,37 @@ function NavBar() {
             </NavLink>
           </li>
         </ul>
-
-        <ul className='w-[25%] flex justify-between'>
-          <li className='text-gray-500'>
-            camiloalf23@gmail.com
-          </li>
+        <ul className='w-full flex flex-col items-center gap-2'>
           <li>
             <NavLink to='/my-account'
+              onClick={toggleNavSlideMenu}
               className='transition-all hover:text-secondary'
             >
               <i className='bx bx-user-circle bx-sm'></i>
             </NavLink>
           </li>
-          <li onClick={openCheckout}>
+          <li onClick={() => {
+            openCheckout();
+            toggleNavSlideMenu();
+          }}>
             <i className='bx bx-cart-alt bx-sm transition-all hover:text-secondary cursor-pointer'></i>
           </li>
           <li>
             <NavLink to='/my-orders'
+              onClick={toggleNavSlideMenu}
               className='transition-all hover:text-secondary'
             >
               <i className='bx bx-purchase-tag bx-sm' ></i>
             </NavLink>
           </li>
-          <li onClick={() => setDarkMode(!darkMode)}>
+          <li onClick={() => {
+              toggleNavSlideMenu();
+              setDarkMode(!darkMode);
+            }}>
             {renderThemeIcon()}
+          </li>
+          <li className='text-gray-500'>
+            camiloalf23@gmail.com
           </li>
         </ul>
       </nav>
@@ -120,4 +160,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default NavBarSm;

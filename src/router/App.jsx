@@ -1,6 +1,7 @@
 import { useRoutes, BrowserRouter } from 'react-router-dom';
 import { ShoppingCartProvider } from '../context/ProductContext';
 import { LoadStatusProvider } from '../context/LoadStatus';
+import { useMediaQuery } from 'react-responsive';
 import Home from '../pages/Home';
 import MyAccount from '../pages/MyAccount';
 import MyOrders from '../pages/MyOrders';
@@ -8,6 +9,7 @@ import MyOrder from '../pages/MyOrder';
 import SignIn from '../pages/SignIn';
 import NotFound from '../pages/NotFound';
 import NavBar from '../components/NavBar';
+import NavBarSm from '../components/NavBarSm';
 import Footer from '../components/Footer';
 import CheckoutSideMenu from '../components/CheckoutSideMenu';
 import '../styles/index.css';
@@ -27,11 +29,20 @@ const AppRoutes = () => {
 }
 
 function App() {
+
+  const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+
   return (
     <ShoppingCartProvider>
       <LoadStatusProvider>
         <BrowserRouter>
-          <NavBar />
+          {
+            isDesktopOrLaptop && <NavBar />
+          }
+          {
+            isTabletOrMobile && <NavBarSm />
+          }
           <AppRoutes />
           <CheckoutSideMenu />
           <Footer />
