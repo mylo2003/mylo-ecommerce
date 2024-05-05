@@ -45,7 +45,10 @@ function NavBarSm() {
       <div className='lg:hidden w-[80%] h-16 flex items-center justify-between md:justify-center font-bold text-xl dark:text-background'>
         <NavLink to='/'
           onClick={() => {
-            toggleNavSlideMenu();
+            window.scrollTo({    
+              top: 0,
+              behavior: "smooth"
+            });
             setSearchedCategory('');
           }}
           className="md:w-2/4 md:text-2xl text-right transition-all hover:text-secondary">
@@ -94,7 +97,7 @@ function NavBarSm() {
               style={activeStyle}
               className="transition-all hover:text-secondary"
             >
-              Jewelery
+              Jewelry
             </NavLink>
           </li>
           <li>

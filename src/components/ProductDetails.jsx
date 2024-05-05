@@ -22,7 +22,7 @@ function ProductDetails() {
   };
 
   return (
-    <aside className={`w-[450px] h-[80vh] ${(isProductDetailOpen) ? 'bottom-10' : '-bottom-[80vh]'} fixed transition-all right-10  rounded-t-xl px-10 py-6 shadow-2xl border border-b-0 border-primary bg-white dark:text-background dark:border-white dark:bg-[#29323b]`}>
+    <aside className={`${(isProductDetailOpen) ? 'bottom-0 md:bottom-10' : '-bottom-[80vh]'} z-50 w-[300px] md:w-[450px] lg:w-[450px] h-[55vh] md:h-[60vh] lg:h-[80vh] fixed transition-all right-10 rounded-t-xl px-10 py-6 shadow-2xl border border-b-0 border-primary bg-white dark:text-background dark:border-white dark:bg-[#29323b]`}>
       <div className="flex justify-between">
         <h2 className="text-text font-semibold text-lg dark:text-background">Details</h2>
         <button onClick={closeProductDetail}>
@@ -30,10 +30,10 @@ function ProductDetails() {
         </button>
       </div>
       <div className="flex justify-center flex-col items-center">
-        <figure className="w-[250px] h-[250px] object-contain">
+        <figure className="w-[150px] h-[150px] md:w-[250px] md:h-[250px] object-contain">
           <img className="w-full h-full rounded-xl" src={productToShow?.image} alt={productToShow?.title} />
         </figure>
-        <div className="my-3 w-[350px] text-pretty">
+        <div className="my-3 md:w-[350px] text-pretty *:text-xs *:md:text-base">
           <h3 className="text-xl font-bold pb-2 flex justify-between">
             <span>${productToShow?.price} - {productToShow?.category}</span>
             {

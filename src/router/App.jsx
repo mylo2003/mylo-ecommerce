@@ -30,8 +30,8 @@ const AppRoutes = () => {
 
 function App() {
 
-  const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1224px)' });
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+  const isDesktopOrLaptop = useMediaQuery({ query: '(min-width: 1050px)' });
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1050px)' });
 
   return (
     <ShoppingCartProvider>

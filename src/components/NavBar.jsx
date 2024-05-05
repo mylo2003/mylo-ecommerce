@@ -67,7 +67,7 @@ function NavBar() {
               style={activeStyle}
               className="transition-all hover:text-secondary"
             >
-              Jewelery
+              Jewelry
             </NavLink>
           </li>
           <li>
